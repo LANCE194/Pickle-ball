@@ -1,0 +1,10 @@
+const r = require('express').Router();
+const c = require('./controller');
+const requireFeature = require('../../../../middleware/requireFeature');
+r.get('/', c.list);
+r.get('/slots', c.slots);
+r.post('/walk-in', c.walkIn);
+r.post('/recurring', requireFeature('recurring_bookings'), c.recurring);
+r.patch('/:id/move', c.move);
+r.post('/:id/cancel', c.cancel);
+module.exports = r;

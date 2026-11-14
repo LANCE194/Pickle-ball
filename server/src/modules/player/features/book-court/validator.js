@@ -1,0 +1,1 @@
+exports.book = b => { const e = {}; if (!b.court_id) e.court_id = 'Choose a court.'; if (!b.start || Number.isNaN(Date.parse(b.start))) e.start = 'Choose a time.'; if (![1, 2, 3].includes(Number(b.hours))) e.hours = 'Choose 1 to 3 hours.'; return e; };

@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /team-access
+Disallow: /staff
+Disallow: /admin
+Disallow: /referee
+Disallow: /app

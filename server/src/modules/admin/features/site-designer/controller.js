@@ -1,0 +1,15 @@
+const s = require('./service');
+const { wrap } = require('../../../../shared/utils');
+exports.options = wrap(async (req, res) => res.json(s.options()));
+exports.getDraft = wrap(async (req, res) => res.json(await s.getDraft(req)));
+exports.saveDraft = wrap(async (req, res) => res.json(await s.saveDraft(req.body.config, req)));
+exports.discard = wrap(async (req, res) => res.json(await s.discard(req)));
+exports.submit = wrap(async (req, res) => res.json(await s.submit(req.body.note, req)));
+exports.history = wrap(async (req, res) => res.json(await s.history(req)));
+exports.preview = wrap(async (req, res) => res.json(await s.preview(req)));
+exports.previewGet = wrap(async (req, res) => res.json(await s.previewGet(req.params.token, req)));
+exports.media = wrap(async (req, res) => res.json(await s.media(req)));
+exports.addMedia = wrap(async (req, res) => res.status(201).json(await s.addMedia(req.savedFile, req)));
+exports.clubs = wrap(async (req, res) => res.json(await s.clubs(req)));
+exports.previewData = wrap(async (req, res) => res.json(await s.previewData(req.params.id, req)));
+exports.publish = wrap(async (req, res) => res.json(await s.publish(req)));

@@ -1,0 +1,1 @@
+exports.post = b => { const e = {}; if (!b.date) e.date = 'Pick a date.'; if (!b.start_time) e.start_time = 'Pick a start time.'; if (!(Number(b.spots_needed) >= 1 && Number(b.spots_needed) <= 11)) e.spots_needed = 'How many players do you need? 1 to 11.'; return e; };

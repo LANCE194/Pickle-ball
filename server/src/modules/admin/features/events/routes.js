@@ -1,0 +1,10 @@
+const r = require('express').Router();
+const c = require('./controller');
+const upload = require('../../../../middleware/upload');
+r.get('/', c.list);
+r.post('/', c.create);
+r.patch('/:id', c.update);
+r.post('/:id/image', ...upload('events'), c.image);
+r.post('/:id/archive', c.archive);
+r.post('/:id/restore', c.restore);
+module.exports = r;

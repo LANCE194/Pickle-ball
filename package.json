@@ -1,0 +1,50 @@
+{
+  "name": "dinknest",
+  "version": "2.0.0",
+  "private": true,
+  "description": "DinkNest - Book. Play. Compete. One server, one command, one SQLite file.",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node server/src/server.js",
+    "dev": "node server/src/server.js --dev",
+    "build": "vite build client",
+    "migrate": "node server/src/scripts/migrate.js",
+    "seed": "node server/src/scripts/seed.js",
+    "create-super-admin": "node server/src/scripts/create-super-admin.js",
+    "jobs": "node server/src/scripts/run-jobs.js",
+    "generate": "node tools/generate-features.js",
+    "docs": "node tools/generate-docs.js",
+    "test": "node --require ./server/src/shared/tests/_stubs.js --test \"server/src/**/*.test.js\" \"client/src/**/*.test.js\""
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "better-sqlite3": "^11.7.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "exceljs": "^4.4.0",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.4.0",
+    "helmet": "^7.1.0",
+    "multer": "^2.5.0",
+    "nodemailer": "^10.5.0",
+    "otplib": "^12.0.1",
+    "pdfkit": "^0.15.0",
+    "sanitize-html": "^2.13.0",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.4.20",
+    "lucide-react": "^0.446.0",
+    "postcss": "^8.4.47",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.2",
+    "recharts": "^2.12.7",
+    "tailwindcss": "^3.4.13",
+    "vite": "^5.4.8",
+    "vite-plugin-pwa": "^0.20.5"
+  }
+}

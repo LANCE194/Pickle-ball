@@ -1,0 +1,12 @@
+const r = require('express').Router();
+const c = require('./controller');
+r.get('/', c.list);
+r.post('/', c.create);
+r.post('/entries/:entryId/decision', c.decide);
+r.patch('/:id', c.update);
+r.post('/:id/status', c.status);
+r.get('/:id/entries', c.entries);
+r.post('/:id/generate', c.generate);
+r.get('/:id/matches', c.matches);
+r.get('/:id/bracket.pdf', c.pdf);
+module.exports = r;

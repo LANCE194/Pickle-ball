@@ -1,0 +1,11 @@
+const s = require('./service');
+const { wrap } = require('../../../../shared/utils');
+exports.list = wrap(async (req, res) => res.json(await s.list()));
+exports.create = wrap(async (req, res) => res.status(201).json(await s.create(req.body, req)));
+exports.update = wrap(async (req, res) => res.json(await s.update(req.params.id, req.body, req)));
+exports.status = wrap(async (req, res) => res.json(await s.status(req.params.id, req.body.status, req)));
+exports.entries = wrap(async (req, res) => res.json(await s.entries(req.params.id)));
+exports.decide = wrap(async (req, res) => res.json(await s.decide(req.params.entryId, req.body.status, req)));
+exports.generate = wrap(async (req, res) => res.json(await s.generate(req.params.id, req)));
+exports.matches = wrap(async (req, res) => res.json(await s.matches(req.params.id)));
+exports.pdf = wrap(async (req, res) => { res.type('application/pdf').send(await s.pdf(req.params.id)); });

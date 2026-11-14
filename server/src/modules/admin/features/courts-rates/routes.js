@@ -1,0 +1,13 @@
+const r = require('express').Router();
+const c = require('./controller');
+const upload = require('../../../../middleware/upload');
+r.get('/', c.list);
+r.get('/blocks', c.blocks);
+r.post('/', c.create);
+r.patch('/:id', c.update);
+r.post('/:id/photo', ...upload('courts'), c.photo);
+r.post('/:id/archive', c.archive);
+r.post('/:id/restore', c.restore);
+r.post('/:id/blocks', c.addBlock);
+r.delete('/blocks/:blockId', c.removeBlock);
+module.exports = r;

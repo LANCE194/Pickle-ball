@@ -1,0 +1,10 @@
+const s = require('./service');
+const { wrap } = require('../../../../shared/utils');
+exports.list = wrap(async (req, res) => res.json(await s.list(req.query)));
+exports.create = wrap(async (req, res) => res.status(201).json(await s.create(req.body, req)));
+exports.get = wrap(async (req, res) => res.json(await s.get(req.params.id, req)));
+exports.update = wrap(async (req, res) => res.json(await s.update(req.params.id, req.body, req)));
+exports.resend = wrap(async (req, res) => res.json(await s.resend(req.params.id, req)));
+exports.reset = wrap(async (req, res) => res.json(await s.reset(req.params.id, req)));
+exports.verify = wrap(async (req, res) => res.json(await s.verify(req.params.id, req)));
+exports.archive = wrap(async (req, res) => res.json(await s.archive(req.params.id, req)));

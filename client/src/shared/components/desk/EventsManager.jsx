@@ -1,0 +1,16 @@
+import { api, apiUrl } from '../../lib/api';
+import { useToast } from '../Toast';
+import CrudPage from '../CrudPage';
+import StatusBadge from '../StatusBadge';
+/** Post events with image, pin (admin) and visibility Public or Members-only. */
+export default function EventsManager({ base, canPin = false, canArchive = false, canImage = false }) {
+  const toast = useToast();
+  const fields = [{ name: 'title', label: 'Title', required: true, placeholder: 'Sunday Open Play' }, { name: 'body', label: 'Details', textarea: true, rows: 5, required: true, placeholder: 'Tell people what, when and who can join.' }, { name: 'event_date', label: 'Event day (optional)', type: 'date' }, { name: 'event_time', label: 'Start time', type: 'time' }, { name: 'visibility', label: 'Who can see it?', options: [{ value: 'public', label: 'Everyone (public)' }, { value: 'members', label: 'Members only' }] }, ...(canPin ? [{ name: 'pinned', label: 'Pin to the top', type: 'checkbox' }] : [])];
+  return <CrudPage title="Events" subtitle="News and events for your players." listPath={base} params={canArchive ? { archived: 'false' } : undefined} createLabel="Post an event" initial={{ visibility: 'public', event_time: '09:00' }} fields={fields}
+    empty={{ title: 'No events yet', text: 'Post news or an event. Guests see public posts only.' }}
+    card={e => <div className="space-y-1">{e.image_path && <img src={apiUrl(`/api/files/${e.image_path}`)} alt="" className="rounded-card w-full h-32 object-cover" loading="lazy" />}<div className="flex justify-between gap-2"><p className="font-semibold">{e.title}</p>{e.pinned && <StatusBadge status="live" label="Pinned" />}</div>{e.date_label && <p className="muted">{e.date_label}</p>}<p className="line-clamp-3">{e.body}</p><p className="text-sm muted">{e.visibility === 'members' ? 'Members only' : 'Public'}</p></div>}
+    toForm={e => ({ ...e, event_date: e.event_starts_at ? new Date(e.event_starts_at).toLocaleDateString('en-CA', { timeZone: 'Asia/Manila' }) : '', event_time: e.event_starts_at ? new Date(e.event_starts_at).toLocaleTimeString('en-GB', { timeZone: 'Asia/Manila', hour: '2-digit', minute: '2-digit' }) : '09:00' })}
+    onCreate={f => api.post(base, f).then(() => ({ message: 'Event posted.' }))} onUpdate={(e, f) => api.patch(`${base}/${e.id}`, f).then(() => ({ message: 'Changes saved.' }))}
+    archive={canArchive ? { label: 'Remove from list', title: 'Remove this post?', text: 'It will no longer show to anyone. You can bring it back later.', run: e => api.post(`${base}/${e.id}/archive`).then(() => ({ message: 'Removed from the list.' })), undo: e => api.post(`${base}/${e.id}/restore`) } : undefined}
+    extraActions={canImage ? (e, reload) => [{ label: e.image_path ? 'Change picture' : 'Add picture', onClick: () => { const i = document.createElement('input'); i.type = 'file'; i.accept = 'image/jpeg,image/png'; i.onchange = async () => { const f = i.files[0]; if (!f) return; if (f.size > 5 * 1024 * 1024) return toast.error('That picture is too big. Use one under 5 MB.'); const fd = new FormData(); fd.append('file', f); try { await api.upload(`${base}/${e.id}/image`, fd); toast.ok('Picture saved.'); reload(); } catch (x) { toast.error(x.message); } }; i.click(); } }] : undefined} />;
+}

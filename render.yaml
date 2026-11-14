@@ -1,0 +1,47 @@
+services:
+  - type: web
+    name: dinknest-api
+    runtime: node
+    region: singapore
+    buildCommand: npm ci --include=dev && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    disk:
+      name: dinknest-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_FILE
+        value: /var/data/dinknest.db
+      - key: STORAGE_DIR
+        value: /var/data/storage
+      - key: TZ
+        value: Asia/Manila
+      - key: SEED_DEMO_DATA
+        value: "false"
+      - key: MULTICLUB_ENABLED
+        value: "false"
+      - key: SUPER_ADMIN_SECOND_FACTOR
+        value: totp
+      - key: DEFAULT_CLUB_HOSTS
+        sync: false
+      - key: CLIENT_ORIGIN
+        sync: false
+      - key: SUPER_ADMIN_PATH
+        sync: false
+      - key: SUPER_ADMIN_EMAIL
+        sync: false
+      - key: SUPER_ADMIN_INITIAL_PASSWORD
+        sync: false
+      - key: SMS_PROVIDER
+        sync: false
+      - key: TWILIO_ACCOUNT_SID
+        sync: false
+      - key: TWILIO_AUTH_TOKEN
+        sync: false
+      - key: TWILIO_FROM_NUMBER
+        sync: false
+      - key: TWILIO_MESSAGING_SERVICE_SID
+        sync: false

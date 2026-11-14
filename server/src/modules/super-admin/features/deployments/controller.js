@@ -1,0 +1,10 @@
+const s = require('./service');
+const { wrap } = require('../../../../shared/utils');
+exports.queue = wrap(async (req, res) => res.json(await s.queue()));
+exports.history = wrap(async (req, res) => res.json(await s.history()));
+exports.preview = wrap(async (req, res) => res.json(await s.preview(req.params.id)));
+exports.approve = wrap(async (req, res) => res.json(await s.act('approve', req.params.id, req.body.note, req)));
+exports.changes = wrap(async (req, res) => res.json(await s.act('changes', req.params.id, req.body.note, req)));
+exports.reject = wrap(async (req, res) => res.json(await s.act('reject', req.params.id, req.body.note, req)));
+exports.deploy = wrap(async (req, res) => res.json(await s.deploy(req.params.id, req)));
+exports.rollback = wrap(async (req, res) => res.json(await s.rollback(req.params.id, req)));

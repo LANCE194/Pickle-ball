@@ -1,0 +1,11 @@
+const r = require('express').Router();
+const c = require('./controller');
+r.get('/queue', c.queue);
+r.get('/history', c.history);
+r.get('/:id/preview', c.preview);
+r.post('/:id/approve', c.approve);
+r.post('/:id/changes', c.changes);
+r.post('/:id/reject', c.reject);
+r.post('/:id/deploy', c.deploy);
+r.post('/:id/rollback', c.rollback);
+module.exports = r;

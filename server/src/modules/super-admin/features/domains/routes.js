@@ -1,0 +1,10 @@
+const r = require('express').Router();
+const c = require('./controller');
+r.get('/', c.list);
+r.post('/', c.create);
+r.post('/:id/verify-dns', c.verifyDns);
+r.post('/:id/https-ready', c.confirmHttpsReady);
+r.post('/:id/rotate-challenge', c.rotateChallenge);
+r.post('/:id/enable', c.enable);
+r.post('/:id/disable', c.disable);
+module.exports = r;

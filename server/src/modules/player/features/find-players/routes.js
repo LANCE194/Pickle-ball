@@ -1,0 +1,13 @@
+const r = require('express').Router();
+const c = require('./controller');
+const validate = require('../../../../middleware/validate');
+const v = require('./validator');
+r.get('/', c.board);
+r.get('/suggestions', c.suggestions);
+r.post('/', validate(v.post), c.create);
+r.post('/:id/join', c.join);
+r.post('/:id/leave', c.leave);
+r.post('/:id/members/:playerId', c.decide);
+r.post('/:id/book', c.book);
+r.post('/:id/cancel', c.cancel);
+module.exports = r;

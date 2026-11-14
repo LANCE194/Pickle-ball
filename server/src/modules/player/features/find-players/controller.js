@@ -1,0 +1,10 @@
+const s = require('./service');
+const { wrap } = require('../../../../shared/utils');
+exports.board = wrap(async (req, res) => res.json(await s.board(req.query, req.user)));
+exports.suggestions = wrap(async (req, res) => res.json(await s.suggestions(req.user)));
+exports.create = wrap(async (req, res) => res.status(201).json(await s.create(req.body, req.user)));
+exports.join = wrap(async (req, res) => res.json(await s.join(req.params.id, req.user)));
+exports.leave = wrap(async (req, res) => res.json(await s.leave(req.params.id, req.user)));
+exports.decide = wrap(async (req, res) => res.json(await s.decide(req.params.id, req.params.playerId, req.body.decision, req.user)));
+exports.book = wrap(async (req, res) => res.json(await s.book(req.params.id, req.user)));
+exports.cancel = wrap(async (req, res) => res.json(await s.cancel(req.params.id, req.user)));

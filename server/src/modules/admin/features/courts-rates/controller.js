@@ -1,0 +1,11 @@
+const s = require('./service');
+const { wrap } = require('../../../../shared/utils');
+exports.list = wrap(async (req, res) => res.json(await s.list(req.query)));
+exports.blocks = wrap(async (req, res) => res.json(await s.blocks(req.query.court)));
+exports.create = wrap(async (req, res) => res.status(201).json(await s.create(req.body, req)));
+exports.update = wrap(async (req, res) => res.json(await s.update(req.params.id, req.body, req)));
+exports.photo = wrap(async (req, res) => res.json(await s.photo(req.params.id, req.savedFile)));
+exports.archive = wrap(async (req, res) => res.json(await s.archive(req.params.id, req)));
+exports.restore = wrap(async (req, res) => res.json(await s.restore(req.params.id, req)));
+exports.addBlock = wrap(async (req, res) => res.status(201).json(await s.addBlock(req.params.id, req.body, req)));
+exports.removeBlock = wrap(async (req, res) => res.json(await s.removeBlock(req.params.blockId, req)));

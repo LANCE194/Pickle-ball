@@ -1,0 +1,18 @@
+const s = require('./service');
+const { wrap } = require('../../../../shared/utils');
+exports.plans = wrap(async (req, res) => res.json(await s.plans()));
+exports.createPlan = wrap(async (req, res) => res.status(201).json(await s.savePlan(req.body, null, req)));
+exports.updatePlan = wrap(async (req, res) => res.json(await s.savePlan(req.body, req.params.id, req)));
+exports.members = wrap(async (req, res) => res.json(await s.members(req.query)));
+exports.addMember = wrap(async (req, res) => res.status(201).json(await s.addMember(req.body, req)));
+exports.renew = wrap(async (req, res) => res.json(await s.renew(req.params.playerId, req.body, req)));
+exports.archive = wrap(async (req, res) => res.json(await s.archive(req.params.id, true, req)));
+exports.restore = wrap(async (req, res) => res.json(await s.archive(req.params.id, false, req)));
+exports.players = wrap(async (req, res) => res.json(await s.players(req.query)));
+exports.addPlayer = wrap(async (req, res) => res.status(201).json(await s.addPlayer(req.body, req)));
+exports.getPlayer = wrap(async (req, res) => res.json(await s.getPlayer(req.params.id, req)));
+exports.updatePlayer = wrap(async (req, res) => res.json(await s.updatePlayer(req.params.id, req.body, req)));
+exports.resend = wrap(async (req, res) => res.json(await s.resend(req.params.id, req)));
+exports.resetPlayer = wrap(async (req, res) => res.json(await s.resetPlayer(req.params.id, req)));
+exports.verify = wrap(async (req, res) => res.json(await s.verify(req.params.id, req)));
+exports.override = wrap(async (req, res) => res.json(await s.override(req.params.id, req)));
